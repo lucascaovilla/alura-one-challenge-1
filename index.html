@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="styles.css"/>
+<div class="decodificador-1-desktop screen">
+    <div class="flex-col">
+        <h1 class="title">Digite seu textos</h1>
+        <input id ="inserirTexto">
+        <div class="frame-1 frame">
+            <p class="apenas-letras-minusculas-e-sem-acento">Apenas letras minúsculas e sem acento.</p>
+        </div>
+        <div class="frame-3 frame">
+            <article class="button">
+                <button class="button-1" id="criptografar">Criptografar</button>
+            </article>
+            <article class="button-2">
+                <button class="button-3" id="descriptografar">Descriptografar</button>
+            </article>
+        </div>
+    </div>
+    
+    <div class="overlap-group">
+        <div class="frame-5 frame">
+            <input class="nenhuma-mensagem-encontrada" id="retornarTexto">
+            <p class="digite-um-texto-que"><button id="copiar">Copiar</button></p>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var inserirTexto = document.querySelector("#inserirTexto");
+    var retornarTexto = document.getElementById("retornarTexto");
+    
+    function criptografar() {
+        var textoParaCriptografar = inserirTexto.value;
+        textoParaCriptografar = textoParaCriptografar.split("");
+        var tamanhotextoParaCriptografar = textoParaCriptografar.length;
+
+        for(var i = 0; i < tamanhotextoParaCriptografar; i++)
+        if(textoParaCriptografar[i] == "a"){
+                textoParaCriptografar.splice(i, 1, "ai");
+            } else if(textoParaCriptografar[i] == "e"){
+                textoParaCriptografar.splice(i, 1, "enter");
+            } else if(textoParaCriptografar[i] == "i"){
+                textoParaCriptografar.splice(i, 1, "imes");
+            } else if(textoParaCriptografar[i] == "o"){
+                textoParaCriptografar.splice(i, 1, "ober");
+            } else if(textoParaCriptografar[i] == "u"){
+                textoParaCriptografar.splice(i, 1, "ufat");
+            }
+        textoParaCriptografar = textoParaCriptografar.toString();
+        textoParaCriptografar = textoParaCriptografar.replaceAll(",","");
+        retornarTexto.value = textoParaCriptografar;
+        return textoParaCriptografar;
+    }
+
+    function descriptografar() {
+        var textoParaDescriptografar = inserirTexto.value;
+        textoParaDescriptografar = textoParaDescriptografar.split("");
+        var tamanhotextoParaDescriptografar = textoParaDescriptografar.length;
+
+        for(var i = 0; i < tamanhotextoParaDescriptografar; i++)
+            if(textoParaDescriptografar[i] == "a"){
+                textoParaDescriptografar.splice(i, 2, "a");
+            } else if(textoParaDescriptografar[i] == "e"){
+                textoParaDescriptografar.splice(i, 5, "e");
+            } else if(textoParaDescriptografar[i] == "i"){
+                textoParaDescriptografar.splice(i, 4, "i");
+            } else if(textoParaDescriptografar[i] == "o"){
+                textoParaDescriptografar.splice(i, 4, "o");
+            } else if(textoParaDescriptografar[i] == "u"){
+                textoParaDescriptografar.splice(i, 4, "u");
+            }
+        textoParaDescriptografar = textoParaDescriptografar.toString();
+        textoParaDescriptografar = textoParaDescriptografar.replaceAll(",","");
+        retornarTexto.value = textoParaDescriptografar;
+        return textoParaDescriptografar;
+    }
+
+    function copiar() {
+        var textoParaCopiar = document.getElementById("retornarTexto");
+        textoParaCopiar = textoParaCopiar.value;
+        console.log(textoParaCopiar);
+        navigator.clipboard.writeText(textoParaCopiar).then(alert("Texto copiado com sucesso."));
+    }
+    var botaoCriptografar = document.querySelector("#criptografar");
+    botaoCriptografar.onclick = criptografar;
+    var botaoDescriptografar = document.querySelector("#descriptografar");
+    botaoDescriptografar.onclick = descriptografar;
+    var botaoCopiar = document.querySelector("#copiar");
+    botaoCopiar.onclick = copiar;
+
+</script>
